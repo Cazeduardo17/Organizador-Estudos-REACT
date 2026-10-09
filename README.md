@@ -35,7 +35,11 @@ O projeto foi desenvolvido como atividade acadêmica da disciplina de Programaç
 
 1. Baixe ou clone o repositório do projeto.
 2. Abra a pasta do projeto no VS Code.
-3. Abra o terminal na pasta que contém o arquivo `package.json`.
+3. Abra o terminal na raiz do repositório e entre na pasta da aplicação:
+
+```bash
+cd organizador-estudos
+```
 4. Instale as dependências:
 
 ```bash
@@ -76,7 +80,7 @@ Na execução verificada durante o desenvolvimento, os cinco testes existentes f
 A aplicação está organizada em pastas para facilitar a manutenção do código.
 
 ```text
-src/
+organizador-estudos/src/
 ├── components/
 │   ├── Header.jsx
 │   ├── ResumoCard.jsx

@@ -25,6 +25,10 @@
   margin-top: 32px;
 }
 
+.home__tarefas-recentes > .button-link {
+  margin-bottom: 24px;
+}
+
 .home__subtitulo {
   margin: 0 0 16px;
   color: #172033;
