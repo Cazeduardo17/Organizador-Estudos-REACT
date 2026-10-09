@@ -1,0 +1,31 @@
+.resumo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 24px;
+  min-height: 150px;
+
+  background-color: #ffffff;
+  border: 1px solid #dce3ed;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.resumo-card h2 {
+  margin: 0;
+  color: #526075;
+  font-size: 16px;
+}
+
+.resumo-card__valor {
+  color: #2563eb;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.resumo-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
