@@ -1,23 +1,96 @@
 .tarefas-pagina {
-  max-width: 760px;
-  margin: 32px auto;
-  padding: 0 20px;
-  color: #222;
-}
-
-.tarefas-pagina h2 {
-  margin-bottom: 16px;
+  width: min(100% - 32px, 760px);
+  margin: 0 auto;
+  padding: 56px 0 72px;
 }
 
 .tarefas-resumo {
   display: flex;
-  gap: 24px;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.tarefa-form {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 28px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.tarefa-form h2 {
+  color: var(--color-heading);
+  font-size: 1.2rem;
+}
+
+.tarefa-form__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 1fr);
+  gap: 16px;
+}
+
+.tarefa-form__field {
+  display: grid;
+  gap: 8px;
+  color: var(--color-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.tarefa-form__field input,
+.tarefa-form__field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--color-heading);
+  font: inherit;
+  font-weight: 400;
+}
+
+.tarefa-form__field input::placeholder {
+  color: #8995a8;
+}
+
+.tarefa-form__field input:focus,
+.tarefa-form__field select:focus {
+  border-color: var(--color-primary);
+  outline: 3px solid rgb(37 99 235 / 14%);
+}
+
+.tarefa-form__error {
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+.tarefas-resumo p {
+  display: flex;
+  min-width: 150px;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-muted);
+  box-shadow: var(--shadow-card);
+}
+
+.tarefas-resumo strong {
+  color: var(--color-primary);
+  font-size: 1.5rem;
 }
 
 .tarefas-lista {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   padding: 0;
   list-style: none;
 }
@@ -27,33 +100,127 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px;
-  border: 1px solid #d5d5d5;
-  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   background: #fff;
+  box-shadow: var(--shadow-card);
 }
 
 .tarefa-card h3 {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  color: var(--color-heading);
 }
 
 .tarefa-card p {
-  margin-bottom: 6px;
-  color: #555;
+  margin-bottom: 10px;
+  color: var(--color-muted);
 }
 
 .tarefa-card--concluida {
-  border-left: 4px solid #32805a;
+  border-left: 4px solid var(--color-primary);
+  background: #fbfdff;
 }
 
-.tarefa-card button {
-  padding: 8px 12px;
+.tarefa-card__status {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--color-blue-soft);
+  color: var(--color-primary-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tarefa-card__button {
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.tarefa-card__button:hover {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+}
+
+.tarefa-card__button--secondary {
+  background: #fff;
+  color: var(--color-primary);
+}
+
+.tarefa-card__button--secondary:hover {
+  background: var(--color-blue-soft);
+  color: var(--color-primary-dark);
+}
+
+.tarefa-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tarefa-card__button--delete {
+  border-color: var(--color-border);
+  background: #fff;
+  color: var(--color-muted);
+}
+
+.tarefa-card__button--delete:hover {
+  border-color: #b8c9e6;
+  background: var(--color-blue-soft);
+  color: var(--color-primary-dark);
+}
+
+.tarefas-empty {
+  padding: 24px;
+  border: 1px dashed #aebbd0;
+  border-radius: 12px;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.tarefas-persistencia-erro {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border: 1px solid #f0c7c3;
+  border-radius: 8px;
+  background: #fff8f7;
+  color: #9f2d24;
 }
 
 @media (max-width: 520px) {
+  .tarefas-pagina {
+    width: min(100% - 24px, 760px);
+    padding: 36px 0 48px;
+  }
+
   .tarefa-card {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .tarefa-form {
+    padding: 18px;
+  }
+
+  .tarefa-form__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .tarefa-card__actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .tarefa-card__actions .tarefa-card__button,
+  .tarefa-form > .tarefa-card__button {
+    width: 100%;
   }
 }
