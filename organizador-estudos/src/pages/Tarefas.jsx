@@ -1,63 +1,8 @@
 import { useState } from "react";
 import TarefaCard from "../components/TarefaCard.jsx";
 import disciplinas from "../data/disciplinas.js";
+import { carregarTarefas, CHAVE_TAREFAS } from "../data/tarefas.js";
 import "./Tarefas.css";
-
-const tarefasIniciais = [
-  {
-    id: 1,
-    titulo: "Estudar React",
-    disciplina: "Programação Web",
-    concluida: false,
-  },
-  {
-    id: 2,
-    titulo: "Revisar exercícios",
-    disciplina: "Programação Web",
-    concluida: true,
-  },
-  {
-    id: 3,
-    titulo: "Ler o capítulo 2",
-    disciplina: "Banco de Dados",
-    concluida: false,
-  },
-];
-
-const CHAVE_TAREFAS = "organizador-estudos:tarefas";
-
-function carregarTarefas() {
-  try {
-    const tarefasSalvas = window.localStorage.getItem(CHAVE_TAREFAS);
-
-    if (!tarefasSalvas) {
-      return { tarefas: tarefasIniciais, erro: "" };
-    }
-
-    const tarefasParseadas = JSON.parse(tarefasSalvas);
-    const tarefasValidas =
-      Array.isArray(tarefasParseadas) &&
-      tarefasParseadas.every(
-        (tarefa) =>
-          Number.isInteger(tarefa.id) &&
-          typeof tarefa.titulo === "string" &&
-          typeof tarefa.disciplina === "string" &&
-          typeof tarefa.concluida === "boolean",
-      );
-
-    if (!tarefasValidas) {
-      throw new Error("Os dados salvos não têm o formato esperado.");
-    }
-
-    return { tarefas: tarefasParseadas, erro: "" };
-  } catch (erro) {
-    console.error("Não foi possível carregar as tarefas salvas.", erro);
-    return {
-      tarefas: tarefasIniciais,
-      erro: "Não foi possível carregar as tarefas salvas neste navegador.",
-    };
-  }
-}
 
 function Tarefas() {
   const [estadoInicial] = useState(carregarTarefas);
@@ -123,9 +68,6 @@ function Tarefas() {
     setTarefas(novasTarefas);
     persistirTarefas(novasTarefas);
   }
-
-  const tarefasPendentes = tarefas.filter((tarefa) => !tarefa.concluida).length;
-  const tarefasConcluidas = tarefas.filter((tarefa) => tarefa.concluida).length;
 
   return (
     <section className="tarefas-pagina">

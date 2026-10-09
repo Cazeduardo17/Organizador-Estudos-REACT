@@ -2,43 +2,16 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ResumoCard from "../components/ResumoCard";
 import disciplinas from "../data/disciplinas";
+import { carregarTarefas } from "../data/tarefas.js";
 import "./Home.css";
 
 function Home() {
+  const [{ tarefas, erro }] = useState(carregarTarefas);
   const [mostrarTodas, setMostrarTodas] = useState(false);
 
   useEffect(() => {
     document.title = "Organizador de Estudos | Início";
   }, []);
-  // Dados temporários das tarefas para a Home
-  const tarefas = [
-    {
-      id: 1,
-      titulo: "Estudar componentes React",
-      concluida: false,
-    },
-    {
-      id: 2,
-      titulo: "Praticar props e children",
-      concluida: true,
-    },
-    {
-      id: 3,
-      titulo: "Revisar JavaScript",
-      concluida: false,
-    },
-    {
-      id: 4,
-      titulo: "Estudar React Router",
-      concluida: true,
-    },
-    {
-      id: 5,
-      titulo: "Praticar useState",
-      concluida: false,
-    },
-  ];
-
   // Calcula a quantidade de tarefas pendentes
   const tarefasPendentes = tarefas.filter((tarefa) => !tarefa.concluida).length;
 
@@ -52,27 +25,12 @@ function Home() {
       : 0;
 
   // Mostra três tarefas ou todas, dependendo do estado
-  const tarefasVisiveis = mostrarTodas ? tarefas : tarefas.slice(0, 3);
+  const tarefasRecentes = [...tarefas].reverse();
+  const tarefasVisiveis = mostrarTodas ? tarefasRecentes : tarefasRecentes.slice(0, 3);
 
   return (
     <section className="page-shell">
-      <div className="home-hero">
-        <p className="page-header__eyebrow">Seu espaço de aprendizagem</p>
-        <h1 className="page-title">Organize seus estudos com mais leveza.</h1>
-        <p className="page-description">
-          Reúna suas disciplinas e tarefas em um só lugar para acompanhar sua
-          rotina acadêmica e manter o foco no que importa.
-        </p>
-        <div className="home-hero__actions">
-          <Link className="button-link" to="/disciplinas">
-            Explorar disciplinas
-          </Link>
-          <Link className="button-link button-link--secondary" to="/tarefas">
-            Ver tarefas
-          </Link>
-        </div>
-
-      </div>
+      
 
       <div className="home">
         <h2 className="home__titulo">Resumo dos estudos</h2>
@@ -80,6 +38,8 @@ function Home() {
         <p className="home__introducao">
           Acompanhe sua organização de estudos em um só lugar.
         </p>
+
+        {erro && <p className="home__vazio" role="alert">{erro}</p>}
 
         {/* Cartões com o resumo dos estudos */}
         <section className="home__resumos">
@@ -115,6 +75,9 @@ function Home() {
         {/* Lista de tarefas recentes */}
         <section className="home__tarefas-recentes">
           <h2 className="home__subtitulo">Tarefas recentes</h2>
+          <Link className="button-link button-link--secondary" to="/tarefas">
+            Gerenciar tarefas
+          </Link>
 
           {tarefas.length > 0 ? (
             <>
@@ -141,7 +104,7 @@ function Home() {
                   className="home__botao-tarefas"
                   type="button"
                   aria-expanded={mostrarTodas}
-                  onClick={() => setMostrarTodas(!mostrarTodas)}
+                  onClick={() => setMostrarTodas((atual) => !atual)}
                 >
                   {mostrarTodas ? "Mostrar menos" : "Ver todas as tarefas"}
                 </button>
